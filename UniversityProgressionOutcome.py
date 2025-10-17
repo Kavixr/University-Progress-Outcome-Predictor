@@ -17,3 +17,12 @@ trailing_count = 0
 retriever_count = 0
 excluded_count = 0
 credits_data = []
+
+# ---------------------- FILE HANDLING ----------------------
+open('progression_data.txt', 'w').close()
+
+def save_to_file(data):
+    """Save progression data to file."""
+    with open('progression_data.txt', 'a') as f:
+        f.write(data + '\n')
+
