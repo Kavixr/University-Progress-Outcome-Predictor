@@ -359,3 +359,46 @@ def display_detailed_stats():
     win.getMouse()
     win.close()
 
+    # ---------------------- MAIN PROGRAM ----------------------
+if __name__ == "__main__":
+    mode = start_screen()
+
+    while True:
+        passed, defer, fail = get_valid_credits()
+        outcome = calculate_outcome(passed, defer, fail)
+        print(f"\n✓ {outcome}\n")
+
+        if mode == 's':
+            break
+
+        data = f"{outcome} - Pass: {passed}, Defer: {defer}, Fail: {fail}"
+        credits_data.append(data)
+        save_to_file(data)
+
+        cont = input("Enter 'y' to continue or 'q' to quit and view results: ").lower()
+        if cont == 'q':
+            break
+
+    if mode == 't':
+        print("\n" + "="*70)
+        print("PROGRESSION STATISTICS".center(70))
+        print("="*70 + "\n")
+        
+        display_histogram()
+        display_detailed_stats()
+
+        print("\nPart 2: Progression Data List")
+        print("-" * 70)
+        for i, record in enumerate(credits_data, 1):
+            print(f"{i}. {record}")
+
+        print("\n\nPart 3: File Data")
+        print("-" * 70)
+        with open('progression_data.txt', 'r') as f:
+            content = f.read()
+            print(content if content else "No data recorded.")
+
+    print("\n" + "="*70)
+    print("Program Ended. Thank you!".center(70))
+    print("="*70)
+
