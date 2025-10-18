@@ -123,3 +123,131 @@ def start_screen():
         elif 340 <= x <= 450 and 200 <= y <= 270:
             win.close()
             return 't'
+
+
+# ---------------------- PROFESSIONAL HISTOGRAM ----------------------
+def display_histogram():
+    """Display a professional and beautiful bar chart."""
+    
+    outcomes = ['Progress', 'Trailer', 'Retriever', 'Excluded']
+    counts = [progress_count, trailing_count, retriever_count, excluded_count]
+    colors = [color_rgb(16, 185, 129), color_rgb(59, 130, 246), 
+              color_rgb(245, 158, 11), color_rgb(239, 68, 68)]
+    total = sum(counts)
+    max_count = max(counts) if max(counts) > 0 else 1
+    
+    # Create window
+    win = GraphWin("Progression Outcomes", 900, 650)
+    win.setBackground(color_rgb(240, 244, 248))
+    
+    # Gradient header
+    for i in range(120):
+        shade = color_rgb(230 - i//4, 235 - i//5, 255)
+        rect = Rectangle(Point(0, i), Point(900, i + 1))
+        rect.setFill(shade)
+        rect.setOutline(shade)
+        rect.draw(win)
+    
+    # Title
+    title = Text(Point(450, 70), "📊 Student Progression Outcomes 📊")
+    title.setSize(24)
+    title.setStyle("bold")
+    title.setFill(color_rgb(35, 60, 90))
+    title.draw(win)
+    
+    # Bar chart setup
+    base_y = 520
+    start_x = 80
+    bar_width = 110
+    gap = 70
+    scale = 300 / max_count if max_count > 0 else 1
+    
+    # Axis
+    axis = Line(Point(100, base_y), Point(850, base_y))
+    axis.setWidth(2)
+    axis.setFill(color_rgb(120, 120, 120))
+    axis.draw(win)
+    
+    # Y-axis labels
+    for i in range(0, int(max_count) + 1, max(1, int(max_count) // 5)):
+        y_pos = base_y - (i * scale)
+        label = Text(Point(80, y_pos), str(i))
+        label.setSize(10)
+        label.setFill(color_rgb(100, 100, 100))
+        label.draw(win)
+        
+        tick = Line(Point(95, y_pos), Point(100, y_pos))
+        tick.setWidth(1)
+        tick.draw(win)
+    
+    # Draw bars
+    x = start_x
+    for name, count, color in zip(outcomes, counts, colors):
+        height = count * scale
+        y_top = base_y - height
+        
+        # Shadow effect
+        shadow = Rectangle(Point(x + 4, base_y + 4), Point(x + bar_width + 4, y_top + 4))
+        shadow.setFill(color_rgb(200, 200, 200))
+        shadow.setOutline(color_rgb(200, 200, 200))
+        shadow.draw(win)
+        
+        # Bar
+        bar = Rectangle(Point(x, base_y), Point(x + bar_width, y_top))
+        bar.setFill(color)
+        bar.setOutline(color_rgb(50, 50, 50))
+        bar.setWidth(2)
+        bar.draw(win)
+        
+        # Value label
+        label_count = Text(Point(x + bar_width / 2, y_top - 25), str(count))
+        label_count.setSize(16)
+        label_count.setStyle("bold")
+        label_count.setFill(color_rgb(40, 40, 40))
+        label_count.draw(win)
+        
+        # Percentage label
+        if total > 0:
+            percentage = (count / total) * 100
+            label_percent = Text(Point(x + bar_width / 2, y_top - 50), f"{percentage:.1f}%")
+            label_percent.setSize(12)
+            label_percent.setFill(color_rgb(80, 80, 80))
+            label_percent.draw(win)
+        
+        # Category label
+        label = Text(Point(x + bar_width / 2, base_y + 30), name)
+        label.setSize(12)
+        label.setStyle("bold")
+        label.setFill(color_rgb(50, 50, 50))
+        label.draw(win)
+        
+        x += bar_width + gap
+    
+    # Summary box
+    summary_box = Rectangle(Point(50, 560), Point(200, 620))
+    summary_box.setFill(color_rgb(224, 231, 255))
+    summary_box.setOutline(color_rgb(59, 130, 246))
+    summary_box.setWidth(2)
+    summary_box.draw(win)
+    
+    total_text = Text(Point(125, 580), f"Total: {total}")
+    total_text.setSize(11)
+    total_text.setStyle("bold")
+    total_text.setFill(color_rgb(31, 41, 55))
+    total_text.draw(win)
+    
+    avg_text = Text(Point(125, 600), f"Avg: {total/4:.1f}")
+    avg_text.setSize(11)
+    avg_text.setStyle("bold")
+    avg_text.setFill(color_rgb(31, 41, 55))
+    avg_text.draw(win)
+    
+    # Instructions
+    instruction = Text(Point(450, 620), "Click anywhere to close")
+    instruction.setSize(10)
+    instruction.setFill(color_rgb(100, 100, 100))
+    instruction.draw(win)
+    
+    win.getMouse()
+    win.close()
+
