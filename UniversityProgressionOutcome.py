@@ -251,3 +251,111 @@ def display_histogram():
     win.getMouse()
     win.close()
 
+# ---------------------- DETAILED STATS DISPLAY ----------------------
+def display_detailed_stats():
+    """Display detailed statistics with four professional outcome cards."""
+    
+    outcomes = ['Progress', 'Trailer', 'Retriever', 'Excluded']
+    counts = [progress_count, trailing_count, retriever_count, excluded_count]
+    colors = [color_rgb(16, 185, 129), color_rgb(59, 130, 246), 
+              color_rgb(245, 158, 11), color_rgb(239, 68, 68)]
+    descriptions = [
+        'Progressing to next level',
+        'On module trailer',
+        'In module retriever',
+        'Excluded from course'
+    ]
+    total = sum(counts)
+    
+    win = GraphWin("Detailed Analysis", 1100, 800)
+    win.setBackground(color_rgb(245, 247, 250))
+    
+    # Gradient header
+    for i in range(100):
+        shade = color_rgb(230 - i//4, 235 - i//5, 255)
+        rect = Rectangle(Point(0, i), Point(1100, i + 1))
+        rect.setFill(shade)
+        rect.setOutline(shade)
+        rect.draw(win)
+    
+    # Title
+    title = Text(Point(550, 50), "📈 Detailed Student Progression Analysis 📈")
+    title.setSize(24)
+    title.setStyle("bold")
+    title.setFill(color_rgb(35, 60, 90))
+    title.draw(win)
+    
+    # Card positions and dimensions
+    positions = [(220, 250), (820, 250), (220, 620), (820, 620)]
+    card_width = 320
+    card_height = 260
+    
+    for idx, (outcome, count, color, desc, (pos_x, pos_y)) in enumerate(
+        zip(outcomes, counts, colors, descriptions, positions)):
+        
+        # Top colored bar
+        top_bar = Rectangle(Point(pos_x - card_width//2, pos_y - card_height//2),
+                           Point(pos_x + card_width//2, pos_y - card_height//2 + 8))
+        top_bar.setFill(color)
+        top_bar.setOutline(color)
+        top_bar.draw(win)
+        
+        # Card background
+        card = Rectangle(Point(pos_x - card_width//2, pos_y - card_height//2),
+                        Point(pos_x + card_width//2, pos_y + card_height//2))
+        card.setFill(color_rgb(255, 255, 255))
+        card.setOutline(color_rgb(220, 220, 220))
+        card.setWidth(1)
+        card.draw(win)
+        
+        # Shadow effect
+        shadow = Rectangle(Point(pos_x - card_width//2 + 2, pos_y + card_height//2),
+                          Point(pos_x + card_width//2 + 2, pos_y + card_height//2 + 4))
+        shadow.setFill(color_rgb(200, 200, 200))
+        shadow.setOutline(color_rgb(200, 200, 200))
+        shadow.draw(win)
+        
+        # Outcome name (inside top bar area)
+        name_text = Text(Point(pos_x - card_width//2 + 30, pos_y - card_height//2 + 20), outcome)
+        name_text.setSize(14)
+        name_text.setStyle("bold")
+        name_text.setFill(color_rgb(255, 255, 255))
+        name_text.draw(win)
+        
+        # Count circle background
+        circle_bg = Circle(Point(pos_x, pos_y - 30), 50)
+        circle_bg.setFill(color)
+        circle_bg.setOutline(color)
+        circle_bg.draw(win)
+        
+        # Count value
+        count_text = Text(Point(pos_x, pos_y - 30), str(count))
+        count_text.setSize(36)
+        count_text.setStyle("bold")
+        count_text.setFill(color_rgb(255, 255, 255))
+        count_text.draw(win)
+        
+        # Percentage
+        if total > 0:
+            percentage = (count / total) * 100
+            percent_text = Text(Point(pos_x, pos_y + 30), f"{percentage:.1f}%")
+            percent_text.setSize(16)
+            percent_text.setStyle("bold")
+            percent_text.setFill(color)
+            percent_text.draw(win)
+        
+        # Description
+        desc_text = Text(Point(pos_x, pos_y + 70), desc)
+        desc_text.setSize(11)
+        desc_text.setFill(color_rgb(100, 100, 100))
+        desc_text.draw(win)
+    
+    # Instructions
+    instruction = Text(Point(550, 780), "Click anywhere to close")
+    instruction.setSize(10)
+    instruction.setFill(color_rgb(120, 120, 120))
+    instruction.draw(win)
+    
+    win.getMouse()
+    win.close()
+
