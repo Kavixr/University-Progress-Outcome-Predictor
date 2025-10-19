@@ -51,3 +51,35 @@ It combines both **student** and **staff** modes:
 | Trailer | 🟦 Blue | Student progresses with modules to retake |
 | Retriever | 🟧 Orange | Student must retake several modules |
 | Excluded | 🟥 Red | Student is excluded from the course |
+
+### 📦 Detailed Statistical Dashboard
+- Four **modern outcome cards** display:
+  - Title (Progress, Trailer, Retriever, Excluded)  
+  - Count and Percentage  
+  - Descriptive explanation  
+- Each card has:
+  - Colored header strip  
+  - Centered circular badge with animated count  
+  - Professional layout and gradient effects  
+
+### 💾 File Output Example
+```
+Progress - Pass: 120, Defer: 0, Fail: 0
+Retriever - Pass: 60, Defer: 40, Fail: 20
+Exclude - Pass: 20, Defer: 20, Fail: 80
+```
+
+---
+
+## 🧮 Logic Summary
+
+| Condition | Outcome |
+|------------|----------|
+| Pass = 120 | **Progress** |
+| Pass = 100 | **Progress (module trailer)** |
+| Fail ≥ 80 | **Exclude** |
+| Otherwise | **Module retriever** |
+
+Each outcome updates a respective counter used in the final statistical analysis and visualization.
+
+---
