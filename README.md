@@ -128,3 +128,58 @@ Each category displayed in a **modern card layout**:
 | Visualization | Custom 2D drawing (bars, gradients, labels) |
 
 ---
+
+## 📄 File Structure
+
+```
+📁 StudentProgressionPredictor/
+│
+├── progression_data.txt      # Auto-generated record file
+├── predictor.py               # Main program file
+├── graphics.py                # GUI library dependency
+└── README.md                  # Project documentation
+```
+
+---
+
+## 🧑‍💻 How to Run
+
+1. Ensure **Python 3** is installed.  
+2. Install `graphics.py` if not available:
+   ```bash
+   pip install graphics.py
+   ```
+3. Run the script:
+   ```bash
+   python predictor.py
+   ```
+4. Choose your mode:
+   - **S** for Student Mode (single entry)
+   - **T** for Staff Mode (multiple entries with visuals)
+
+---
+
+## 🌈 Highlights for Users
+
+- **Simple yet powerful design** — beginner-friendly, but rich in visuals.  
+- **Smooth graphics experience** — color gradients, shadows, rounded bars, and percentages.  
+- **Engaging UI** — interactive start screen with emoji-based headers.  
+- **Accurate academic logic** — replicates real university progression rules.  
+
+---
+
+## 🏆 Author
+
+**Kavindu Rajapaksha**  
+🎓 BSc (Hons) Computer Science  
+📍 Informatics Institute of Technology (IIT)  
+📧 [kavindurajapaksha848@gmail.com](mailto:kavindurajapaksha848@gmail.com)
+
+---
+
+## 💡 Future Enhancements
+
+- Add **animated bar transitions**.  
+- Include **export to CSV** and **PDF summary reports**.  
+- Introduce **historical trend tracking** for multi-semester data.  
+- Implement **pie chart visualization** for quick ratio comparison.
